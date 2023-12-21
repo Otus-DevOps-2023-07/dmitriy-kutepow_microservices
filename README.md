@@ -1,3 +1,31 @@
+## ДЗ №15 Сетевое взаимодействие Docker контейнеров. Docker Compose. Тестирование образов
+Что сделано:
+```
+1.Разобрался с работой сетей в Docker: none, host, bridge.
+2.Установил docker-compose на локальную машину
+3.Собрал образы приложения reddit с помощью docker-compose
+4.Запустил приложение reddit с помощью docker-compose
+```
+Command list:
+```
+docker run -ti --rm --network none joffotron/docker-net-tools -c ifconfig
+docker run -ti --rm --network host joffotron/docker-net-tools -c ifconfig
+docker network create reddit --driver bridge
+docker run -d --network=reddit --network-alias=post_db --network-
+alias=comment_db mongo:latest
+docker run -d --network=reddit --network-alias=post <your-login>/post:1.0
+docker run -d --network=reddit --network-alias=comment <your-login>/comment:1.0
+docker run -d --network=reddit -p 9292:9292 <your-login>/ui:1.0
+docker network create back_net --subnet=10.0.2.0/24
+docker network create front_net --subnet=10.0.1.0/24
+docker run -d --network=front_net -p 9292:9292 --name ui <your-login>/ui:1.0
+docker run -d --network=back_net --name comment <your-login>/comment:1.0
+docker run -d --network=back_net --name post <your-login>/post:1.0
+docker run -d --network=back_net --name mongo_db --network-alias=post_db --network-alias=comment_db mongo:latest
+docker network connect front_net post
+docker network connect front_net comment
+```
+
 ## ДЗ №13 Docker контейнеры. Docker под капотом
 Что сделано:
 ```
