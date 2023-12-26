@@ -1,3 +1,120 @@
+## ДЗ №17 Введение в мониторинг. Модели и принципы работы систем мониторинга
+Ссылка на докерхаб https://hub.docker.com/repositories/dimkutep
+Что сделано:
+```
+1.Сконфигурировал, запустил и ознакомился с Prometheus
+2.Настроил мониторинг состояния микросервисов
+3.Сбрал метрики хоста с использованием node экспортера
+```
+Command list:
+```
+ 1405  export USER_NAME=dimkutep
+ 1409  sudo docker login -u **** -p ******
+ 1410  sudo docker build -t $USER_NAME/prometheus .
+ 1411  cd ..
+ 1417  for i in ui post-py comment; do cd src/$i; bash docker_build.sh; cd -; done
+ 1418  cd docker/
+ 1419  sudo docker-compose up -d
+ 1420  sudo docker ps -a
+ 1421  sudo docker push
+ 1422  sudo docker images
+ 1423  sudo docker push dimkutep/ui
+ 1424  sudo docker-compose up -d
+ 1430  sudo docker-compose stop post
+ 1431  sudo docker-compose start post
+ 1436  sudo docker build -t $USER_NAME/prometheus .
+ 1440  sudo docker-compose up -d
+ 1442  sudo docker login
+ 1443  sudo docker push $USER_NAME/ui
+ 1444  sudo docker push $USER_NAME/commit
+ 1445  sudo docker push $USER_NAME/comment
+ 1446  sudo docker push $USER_NAME/post\
+ 1447  sudo docker push $USER_NAME/post
+ 1448  sudo docker push $USER_NAME/prometheus
+ 1449  sudo docker-compose down
+
+```
+
+## ДЗ №16 Устройство Gitlab CI. Построение процесса непрерывной интеграции
+Что сделано:
+```
+1.Подготовлена инсталляцию Gitlab CI
+2.Подготовлен репозиторий с кодом приложения
+3.Описаны для приложения этапы пайплайна
+4.Определены окружения
+5.Настроено динамическое окружение
+```
+Command list:
+```
+docker_install.sh
+#!/bin/bash
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+
+    1  sudo vi docker_install.sh
+    2  sh docker_install.sh
+    3  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    4  sudo docker run hello-world
+    8  mkdir -p /srv/gitlab/config /srv/gitlab/data /srv/gitlab/logs
+    9  sudo mkdir -p /srv/gitlab/config /srv/gitlab/data /srv/gitlab/logs
+   10  cd /srv/gitlab
+   11  touch docker-compose.yml
+   12  sudo vi docker-compose.yml
+   15  apt install docker-compose
+   16  sudo apt install docker-compose
+   14  docker-compose up -d
+   74  sudo docker exec 8fa5dcac4e94 cat /etc/gitlab/initial_root_password
+   75  ls -la
+   76  cd ..
+   77  cd srv/gitlab/
+   78  sudo vi docker-compose.yml
+   79  sudo docker-compose up -d
+   83  sudo docker run -d --name gitlab-runner --restart always -v /srv/gitlab-runner/config:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock gitlab/gitlab-runner:latest
+   84  sudo docker exec -it gitlab-runner gitlab-runner register --url http://158.160.100.126/ --non-interactive --locked=false --name DockerRunner --executor docker --docker-image alpine:latest --registration-token GR1348941sZz9xNGVRYg2Yats8ynu --tag-list "linux,xenial,ubuntu,docker" --run-untagged
+
+
+```
+
+## ДЗ №15 Сетевое взаимодействие Docker контейнеров. Docker Compose. Тестирование образов
+Что сделано:
+```
+1.Разобрался с работой сетей в Docker: none, host, bridge.
+2.Установил docker-compose на локальную машину
+3.Собрал образы приложения reddit с помощью docker-compose
+4.Запустил приложение reddit с помощью docker-compose
+```
+Command list:
+```
+docker run -ti --rm --network none joffotron/docker-net-tools -c ifconfig
+docker run -ti --rm --network host joffotron/docker-net-tools -c ifconfig
+docker network create reddit --driver bridge
+docker run -d --network=reddit --network-alias=post_db --network-
+alias=comment_db mongo:latest
+docker run -d --network=reddit --network-alias=post <your-login>/post:1.0
+docker run -d --network=reddit --network-alias=comment <your-login>/comment:1.0
+docker run -d --network=reddit -p 9292:9292 <your-login>/ui:1.0
+docker network create back_net --subnet=10.0.2.0/24
+docker network create front_net --subnet=10.0.1.0/24
+docker run -d --network=front_net -p 9292:9292 --name ui <your-login>/ui:1.0
+docker run -d --network=back_net --name comment <your-login>/comment:1.0
+docker run -d --network=back_net --name post <your-login>/post:1.0
+docker run -d --network=back_net --name mongo_db --network-alias=post_db --network-alias=comment_db mongo:latest
+docker network connect front_net post
+docker network connect front_net comment
+```
+
 ## ДЗ №13 Docker контейнеры. Docker под капотом
 Что сделано:
 ```
