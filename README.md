@@ -13,7 +13,7 @@ Command list:
  1560  printenv USER_NAME
  1561  export USER_NAME='dimkutep'
  1562  printenv USER_NAME
- 1563  sudo docker login -u dimkutep -p 1q2w3e4f5t
+ 1563  sudo docker login -u ********* -p **********
  1564  cd ./docker/ui && bash docker_build.sh && docker push $USER_NAME/ui
  1565  cd ../post-py && bash docker_build.sh && docker push $USER_NAME/post
  1566  cd ../comment && bash docker_build.sh && docker push $USER_NAME/comment
@@ -46,7 +46,7 @@ Command list:
  1593  sudo docker-compose up -d
  1594  export USER_NAME=dimkutep
  1595  sudo docker-compose down
- 1596  sudo docker login -u dimkutep -p 1q2w3e4f5t
+ 1596  sudo docker login -u ******* -p *****
  1597  sudo docker-compose down
  1598  sudo docker-compose up -d
  1599  sudo docker-compose -f docker-compose-logging.yml up -d
