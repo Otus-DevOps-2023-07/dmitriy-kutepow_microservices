@@ -1,3 +1,55 @@
+## ДЗ №16 Устройство Gitlab CI. Построение процесса непрерывной интеграции
+Что сделано:
+```
+1.Подготовлена инсталляцию Gitlab CI
+2.Подготовлен репозиторий с кодом приложения
+3.Описаны для приложения этапы пайплайна
+4.Определены окружения
+5.Настроено динамическое окружение
+```
+Command list:
+```
+docker_install.sh
+#!/bin/bash
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+ 
+    1  sudo vi docker_install.sh
+    2  sh docker_install.sh 
+    3  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    4  sudo docker run hello-world
+    8  mkdir -p /srv/gitlab/config /srv/gitlab/data /srv/gitlab/logs
+    9  sudo mkdir -p /srv/gitlab/config /srv/gitlab/data /srv/gitlab/logs
+   10  cd /srv/gitlab
+   11  touch docker-compose.yml
+   12  sudo vi docker-compose.yml
+   15  apt install docker-compose 
+   16  sudo apt install docker-compose
+   14  docker-compose up -d
+   74  sudo docker exec 8fa5dcac4e94 cat /etc/gitlab/initial_root_password
+   75  ls -la
+   76  cd ..
+   77  cd srv/gitlab/
+   78  sudo vi docker-compose.yml 
+   79  sudo docker-compose up -d
+   83  sudo docker run -d --name gitlab-runner --restart always -v /srv/gitlab-runner/config:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock gitlab/gitlab-runner:latest
+   84  sudo docker exec -it gitlab-runner gitlab-runner register --url http://158.160.100.126/ --non-interactive --locked=false --name DockerRunner --executor docker --docker-image alpine:latest --registration-token GR1348941sZz9xNGVRYg2Yats8ynu --tag-list "linux,xenial,ubuntu,docker" --run-untagged
+
+
+```
+
 ## ДЗ №15 Сетевое взаимодействие Docker контейнеров. Docker Compose. Тестирование образов
 Что сделано:
 ```
