@@ -1,3 +1,40 @@
+## ДЗ №17 Введение в мониторинг. Модели и принципы работы систем мониторинга
+Ссылка на докерхаб https://hub.docker.com/repositories/dimkutep
+Что сделано:
+```
+1.Сконфигурировал, запустил и ознакомился с Prometheus
+2.Настроил мониторинг состояния микросервисов
+3.Сбрал метрики хоста с использованием node экспортера
+```
+Command list:
+```
+ 1405  export USER_NAME=dimkutep
+ 1409  sudo docker login -u **** -p ******
+ 1410  sudo docker build -t $USER_NAME/prometheus .
+ 1411  cd ..
+ 1417  for i in ui post-py comment; do cd src/$i; bash docker_build.sh; cd -; done
+ 1418  cd docker/
+ 1419  sudo docker-compose up -d
+ 1420  sudo docker ps -a
+ 1421  sudo docker push
+ 1422  sudo docker images
+ 1423  sudo docker push dimkutep/ui
+ 1424  sudo docker-compose up -d
+ 1430  sudo docker-compose stop post
+ 1431  sudo docker-compose start post
+ 1436  sudo docker build -t $USER_NAME/prometheus .
+ 1440  sudo docker-compose up -d
+ 1442  sudo docker login
+ 1443  sudo docker push $USER_NAME/ui
+ 1444  sudo docker push $USER_NAME/commit
+ 1445  sudo docker push $USER_NAME/comment
+ 1446  sudo docker push $USER_NAME/post\
+ 1447  sudo docker push $USER_NAME/post
+ 1448  sudo docker push $USER_NAME/prometheus
+ 1449  sudo docker-compose down
+
+```
+
 ## ДЗ №16 Устройство Gitlab CI. Построение процесса непрерывной интеграции
 Что сделано:
 ```
@@ -25,9 +62,9 @@ echo \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
 
- 
+
     1  sudo vi docker_install.sh
-    2  sh docker_install.sh 
+    2  sh docker_install.sh
     3  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     4  sudo docker run hello-world
     8  mkdir -p /srv/gitlab/config /srv/gitlab/data /srv/gitlab/logs
@@ -35,14 +72,14 @@ sudo apt-get update
    10  cd /srv/gitlab
    11  touch docker-compose.yml
    12  sudo vi docker-compose.yml
-   15  apt install docker-compose 
+   15  apt install docker-compose
    16  sudo apt install docker-compose
    14  docker-compose up -d
    74  sudo docker exec 8fa5dcac4e94 cat /etc/gitlab/initial_root_password
    75  ls -la
    76  cd ..
    77  cd srv/gitlab/
-   78  sudo vi docker-compose.yml 
+   78  sudo vi docker-compose.yml
    79  sudo docker-compose up -d
    83  sudo docker run -d --name gitlab-runner --restart always -v /srv/gitlab-runner/config:/etc/gitlab-runner -v /var/run/docker.sock:/var/run/docker.sock gitlab/gitlab-runner:latest
    84  sudo docker exec -it gitlab-runner gitlab-runner register --url http://158.160.100.126/ --non-interactive --locked=false --name DockerRunner --executor docker --docker-image alpine:latest --registration-token GR1348941sZz9xNGVRYg2Yats8ynu --tag-list "linux,xenial,ubuntu,docker" --run-untagged
