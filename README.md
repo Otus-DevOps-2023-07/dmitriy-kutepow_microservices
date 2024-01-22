@@ -1,3 +1,100 @@
+## ДЗ №18 Применение системы логирования в инфраструктуре на основе Docker
+Что сделано:
+```
+1.Подготовил окружения
+2.Логирование Docker-контейнеров
+3.Сбор неструктурированных логов
+4.Визуализация логов
+5.Сбор структурированных логов
+6.Распределенный трейсинг
+```
+Command list:
+```
+ 1560  printenv USER_NAME
+ 1561  export USER_NAME='dimkutep'
+ 1562  printenv USER_NAME
+ 1563  sudo docker login -u ********* -p **********
+ 1564  cd ./docker/ui && bash docker_build.sh && docker push $USER_NAME/ui
+ 1565  cd ../post-py && bash docker_build.sh && docker push $USER_NAME/post
+ 1566  cd ../comment && bash docker_build.sh && docker push $USER_NAME/comment
+ 1567  sudo add-apt-repository ppa:longsleep/golang-backports
+ 1568  sudo apt update
+ 1569  sudo apt install golang-go
+ 1570  cd .
+ 1571  cd ..
+ 1572  cd logging/fluentd
+ 1573  cd ..
+ 1574  cd logging/fluentd
+ 1575  sudo docker build -t $USER_NAME/fluentd .
+ 1576  cd docker && docker-compose up -d
+ 1577  cd ..
+ 1578  cd docker && sudo docker-compose up -d
+ 1579  sudo docker-compose logs -f post
+ 1580  sudo docker ps -a
+ 1581  sudo docker-compose logs -f post
+ 1582  ршыещкн
+ 1583  history
+ 1584  cd ./docker/ui && bash docker_build.sh && docker push $USER_NAME/ui
+ 1585  cd ui && bash docker_build.sh && docker push $USER_NAME/ui
+ 1586  cd ../post-py && bash docker_build.sh && docker push $USER_NAME/post
+ 1587  cd ../comment && bash docker_build.sh && docker push $USER_NAME/comment
+ 1588  history
+  1589  sudo docker ps -a
+ 1590  cd ..
+ 1591  sudo docker-compose -f docker-compose-logging.yml up -d
+ 1592  sudo docker-compose down
+ 1593  sudo docker-compose up -d
+ 1594  export USER_NAME=dimkutep
+ 1595  sudo docker-compose down
+ 1596  sudo docker login -u ******* -p *****
+ 1597  sudo docker-compose down
+ 1598  sudo docker-compose up -d
+ 1599  sudo docker-compose -f docker-compose-logging.yml up -d
+ 1600  sudo docker-compose down
+ 1601  sudo docker-compose up -d
+ 1602  cd ..
+ 1603  cd logging/
+ 1604  cd fluentd/
+ 1605  sudo docker build -t dimkutep/fluentd .
+ 1606  cd ..
+ 1607  cd docker/
+ 1608  sudo docker-compose -f docker-compose-logging.yml up -d fluentd
+ 1609  sudo docker-compose up -d
+ 1610  sudo docker ps -a
+ 1611  sudo docker-compose stop ui
+ 1612  sudo docker-compose rm ui
+ 1613  sudo docker-compose up -d
+ 1614  cd ..
+ 1615  cd logging/fluentd/
+ 1616  sudo docker build -t dimkutep/fluentd .
+ 1617  cd ..
+ 1618  cd docker/
+ 1619  sudo docker-compose -f docker-compose-logging.yml up -d fluentd
+ 1620  cd logging/fluentd/
+ 1621  cd ..
+ 1622  cd logging/fluentd/
+ 1623  sudo docker build -t dimkutep/fluentd .
+ 1624  cd ..
+ 1625  cd docker/
+ 1626  sudo docker-compose -f docker-compose-logging.yml up -d fluentd
+ 1627  sudo docker ps -a
+ 1628  sudo docker-compose up -d
+ 1629  history
+ 1630  sudo docker-compose -f docker-compose-logging.yml up -d fluentd
+ 1631  sudo docker ps -a
+ 1632  cd ..
+ 1633  cd logging/fluentd/
+ 1634  sudo docker build -t dimkutep/fluentd .
+ 1635  cd ..
+ 1636  cd docker/
+ 1637  sudo docker-compose -f docker-compose-logging.yml up -d fluentd
+ 1638  sudo docker ps -a
+ 1639  sudo docker logs 24c50315386c
+ 1640  sudo docker-compose -f docker-compose-logging.yml -f docker-compose.yml down
+ 1641  sudo docker-compose -f docker-compose-logging.yml -f docker-compose.yml up -d
+ 1642  history
+```
+
 ## ДЗ №17 Введение в мониторинг. Модели и принципы работы систем мониторинга
 Ссылка на докерхаб https://hub.docker.com/repositories/dimkutep
 Что сделано:
